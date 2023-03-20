@@ -1,0 +1,5 @@
+{
+    "hidden_size": 62,
+    "num_components": 11,
+    "init_type": "residual"
+}

@@ -1,0 +1,5 @@
+{
+    "hidden_size": 27,
+    "num_components": 6,
+    "init_type": "fixed"
+}
