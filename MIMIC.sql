@@ -8,7 +8,7 @@ select
         ELSE 0 
     END as is_male
     , CASE 
-        WHEN adm.ethnicity="WHITE" THEN 1 
+        WHEN adm.race="WHITE" THEN 1 
         ELSE 0 
     END as is_white
     , icu_detail.admission_age as age
@@ -28,33 +28,33 @@ select
     , labs.*
     , sofa.* 
 from "physionet-data.mimic_core.patients" pat 
-inner join "physionet-data.mimic_core.admissions" adm 
+inner join "physionet-data.mimiciv_hosp.admissions" adm 
     on pat.subject_id=adm.subject_id 
-inner join "physionet-data.mimic_icu.icustays" icu 
+inner join "physionet-data.mimiciv_hosp.icustays" icu 
     on adm.subject_id=icu.subject_id 
     and adm.hadm_id=icu.hadm_id 
-inner join "physionet-data.mimic_derived.first_day_height" fdh 
+inner join "physionet-data.mimiciv_derived.first_day_height" fdh 
     on adm.subject_id = fdh.subject_id 
     and icu.stay_id = fdh.stay_id 
-inner join "physionet-data.mimic_derived.first_day_weight" fdw 
+inner join "physionet-data.mimiciv_derived.first_day_weight" fdw 
     on adm.subject_id = fdw.subject_id 
     and icu.stay_id = fdw.stay_id
-inner join "physionet-data.mimic_derived.icustay_detail" icu_detail 
+inner join "physionet-data.mimiciv_derived.icustay_detail" icu_detail 
     on adm.subject_id=icu_detail.subject_id 
     and adm.hadm_id=icu_detail.hadm_id 
     and icu.stay_id=icu_detail.stay_id 
-inner join "physionet-data.mimic_derived.first_day_sofa" sofa 
+inner join "physionet-data.mimiciv_derived.first_day_sofa" sofa 
     on adm.subject_id=sofa.subject_id 
     and adm.hadm_id=sofa.hadm_id 
     and icu.stay_id=sofa.stay_id 
-inner join "physionet-data.mimic_derived.first_day_vitalsign" vitals 
+inner join "physionet-data.mimiciv_derived.first_day_vitalsign" vitals 
     on adm.subject_id=vitals.subject_id
     and icu.stay_id=vitals.stay_id 
-inner join "physionet-data.mimic_derived.first_day_lab" labs 
+inner join "physionet-data.mimiciv_derived.first_day_lab" labs 
     on adm.subject_id=labs.subject_id 
     and icu.stay_id=labs.stay_id 
 where icu_detail.los_icu > 1 
     and pat.gender is not null 
-    and adm.ethnicity is not null 
-    and adm.ethnicity != "UNABLE TO OBTAIN" 
-    and adm.ethnicity != "UNKNOWN";
+    and adm.race is not null 
+    and adm.race != "UNABLE TO OBTAIN" 
+    and adm.race != "UNKNOWN";
