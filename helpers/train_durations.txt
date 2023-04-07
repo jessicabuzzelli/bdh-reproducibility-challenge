@@ -1,0 +1,12 @@
+Dataset: gbsg
+	mean training duration: 0 days 00:00:04.009512903
+	median training duration: 0 days 00:00:03.853747500
+	stddev training duration: 0 days 00:00:02.287597985
+Dataset: metabric
+	mean training duration: 0 days 00:00:04.009512903
+	median training duration: 0 days 00:00:03.853747500
+	stddev training duration: 0 days 00:00:02.287597985
+Dataset: support
+	mean training duration: 0 days 00:00:04.009512903
+	median training duration: 0 days 00:00:03.853747500
+	stddev training duration: 0 days 00:00:02.287597985
