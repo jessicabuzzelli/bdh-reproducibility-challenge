@@ -17,6 +17,7 @@ from mdn_models import MDNModel
 from six.moves import cPickle as pickle
 from trainers import MDNTrainer
 from utils import SEP
+import sys
 
 parser = argparse.ArgumentParser(description='Main.')
 parser.add_argument("--dataset", default="support")
@@ -112,6 +113,7 @@ model.to(args.device)
 # Survival loss.
 def survival_loss(outputs, labels):
     if torch.isnan(torch.abs(outputs["lambda"]).max()):
+        print("encountered NaN loss!")
         sys.exit()
     batch_loss = -labels * torch.log(
         outputs["lambda"].clamp(min=1e-8)) + outputs["Lambda"]

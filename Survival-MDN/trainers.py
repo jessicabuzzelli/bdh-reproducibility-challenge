@@ -141,7 +141,7 @@ class MDNTrainer(object):
     def initialize_metric(self):
         return np.inf
 
-    def metric_imporved(self, current, previous):
+    def metric_improved(self, current, previous):
         """Check if the metric is improved."""
         return current < previous
 
@@ -280,7 +280,7 @@ class MDNTrainer(object):
                 earlystop_metrics.append(
                     metric_value_dict[metric_name][0])
         earlystop_metric = np.mean(earlystop_metrics)
-        if self.metric_imporved(earlystop_metric, self.best_earlystop_metric):
+        if self.metric_improved(earlystop_metric, self.best_earlystop_metric):
             self.best_earlystop_metric = earlystop_metric
             self.curr_patience = self.patience
             self.maybe_save_ckpt()

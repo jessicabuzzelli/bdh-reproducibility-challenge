@@ -127,9 +127,13 @@ def get_dataloader(t,
         kmf = KaplanMeierFitter()
         kmf.fit(t, event_observed=(1 - delta))
         G_T = kmf.predict(t, interpolate=True).to_numpy()
+        
         for eps in [0.1, 0.2, 0.3, 0.4, 0.5]:
-            constant_dict["t_max_{}".format(eps)] = torch.tensor(
-                max(t[G_T > eps]), dtype=torch.float32)
+            try:
+                tens = max(t[G_T > eps])
+            except:
+                tens = eps
+            constant_dict["t_max_{}".format(eps)] = torch.tensor(tens, dtype=torch.float32)
 
         def _collate_fn(batch):
             if isinstance(batch[0][0], dict):
